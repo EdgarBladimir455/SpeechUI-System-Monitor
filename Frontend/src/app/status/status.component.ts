@@ -2,10 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { OSService } from 'src/app/services/os.service';
 import { EventSourcePolyfill } from 'ng-event-source';
 
-class PongMessage {
-
-}
-
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
