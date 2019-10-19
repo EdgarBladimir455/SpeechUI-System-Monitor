@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { ProcessListRoutingModule } from './process-list-routing.module';
 import { ProcessListComponent } from './process-list.component';
+import { StatusComponent } from '../status/status.component';
 
 
 @NgModule({
-  declarations: [ProcessListComponent],
+  declarations: [ProcessListComponent, StatusComponent],
   imports: [
     CommonModule,
-    ProcessListRoutingModule
+    ProcessListRoutingModule,
   ]
 })
 export class ProcessListModule { }

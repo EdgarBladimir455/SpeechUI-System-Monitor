@@ -1,11 +1,48 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="bg-home"></div>
+  <div class="bg-home"></div>
   <span class="navbar-brand text-white">
     <i class="fas fa-home" *ngIf="inHome"></i>
-    <i class="fas fa-arrow-left" *ngIf="!inHome" [routerLink]="['/menu/opciones']"></i>
+    <i
+      class="fas fa-arrow-left"
+      *ngIf="!inHome"
+      [routerLink]="['/menu/opciones']"
+    ></i>
   </span>
 </nav>
 
-<div class="container-fluid mt-5 pb-3 h-80">
+<div class="loading" *ngIf="showAlert && !loading">
+  <app-alert></app-alert>
+</div>
+
+<div class="loading" *ngIf="loading">
+  <svg class="svg-loading" width="200" height="200" viewBox="0 0 100 100">
+    <polyline
+      class="line-cornered stroke-still"
+      points="0,0 100,0 100,100"
+      stroke-width="10"
+      fill="none"
+    ></polyline>
+    <polyline
+      class="line-cornered stroke-still"
+      points="0,0 0,100 100,100"
+      stroke-width="10"
+      fill="none"
+    ></polyline>
+    <polyline
+      class="line-cornered stroke-animation"
+      points="0,0 100,0 100,100"
+      stroke-width="10"
+      fill="none"
+    ></polyline>
+    <polyline
+      class="line-cornered stroke-animation"
+      points="0,0 0,100 100,100"
+      stroke-width="10"
+      fill="none"
+    ></polyline>
+  </svg>
+</div>
+
+<div class="container-fluid p-4 pb-3 h-80">
   <ng-content #mainContent> </ng-content>
 </div>

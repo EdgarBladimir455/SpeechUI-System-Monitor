@@ -8,7 +8,7 @@
     <div class="col">
         <div class="status-progress mb-3">
           <div class="status-circle mx-auto">
-            <span class="progress-percent">{{ progress }}%</span>
+            <span class="progress-percent" *ngIf="statView == 1">{{ memPercentUsage | number:'2.1-1'}}%</span>
           </div>          
         </div>
     </div>
