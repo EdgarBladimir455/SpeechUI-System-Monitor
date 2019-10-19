@@ -6,23 +6,22 @@ package com.labe455.industry.speech.ui.system.monitor.model;
  * @version 1.0.0 10/10/2019
  */
 public class Process {
-	private long processID;
+	private String processID;
 	private String user;
-	private int priority;
-	private int niceValue;
-	private double virtualMemory;
-	private int res;
-	private int sharedMemory;
+	private String priority;
+	private String niceValue;
+	private String virtualMemory;
+	private String res;
+	private String sharedMemory;
 	private String S;
 	private double cpuUsage;
 	private double memUsage;
 	private String hour;
 	private String command;
-	
-	public long getProcessID() {
+	public String getProcessID() {
 		return processID;
 	}
-	public void setProcessID(long processID) {
+	public void setProcessID(String processID) {
 		this.processID = processID;
 	}
 	public String getUser() {
@@ -31,34 +30,34 @@ public class Process {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public int getPriority() {
+	public String getPriority() {
 		return priority;
 	}
-	public void setPriority(int priority) {
+	public void setPriority(String priority) {
 		this.priority = priority;
 	}
-	public int getNiceValue() {
+	public String getNiceValue() {
 		return niceValue;
 	}
-	public void setNiceValue(int niceValue) {
+	public void setNiceValue(String niceValue) {
 		this.niceValue = niceValue;
 	}
-	public double getVirtualMemory() {
+	public String getVirtualMemory() {
 		return virtualMemory;
 	}
-	public void setVirtualMemory(double virtualMemory) {
+	public void setVirtualMemory(String virtualMemory) {
 		this.virtualMemory = virtualMemory;
 	}
-	public int getRes() {
+	public String getRes() {
 		return res;
 	}
-	public void setRes(int res) {
+	public void setRes(String res) {
 		this.res = res;
 	}
-	public int getSharedMemory() {
+	public String getSharedMemory() {
 		return sharedMemory;
 	}
-	public void setSharedMemory(int sharedMemory) {
+	public void setSharedMemory(String sharedMemory) {
 		this.sharedMemory = sharedMemory;
 	}
 	public String getS() {
@@ -90,6 +89,6 @@ public class Process {
 	}
 	public void setCommand(String command) {
 		this.command = command;
-	}
+	}	
 		
 }

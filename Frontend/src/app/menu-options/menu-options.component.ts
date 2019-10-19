@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ElementRef } from '@angular/core';
 import { RouteService } from '../services/route.service';
 import { Router } from '@angular/router';
 
@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
   templateUrl: './menu-options.component.html',
   styleUrls: []
 })
-export class MenuOptionsComponent implements OnInit {
-
+export class MenuOptionsComponent implements OnInit, OnDestroy {
+  
   constructor(private routeService:RouteService, private router:Router) { }
 
   ngOnInit() {
@@ -17,6 +17,9 @@ export class MenuOptionsComponent implements OnInit {
   
   toProcessList() {    
     this.router.navigate(['/menu/procesos']);
+  }
+
+  ngOnDestroy() {
   }
 
 }

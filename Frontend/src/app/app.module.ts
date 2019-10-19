@@ -12,14 +12,14 @@ import { AppRoutingModule } from './app.routes.module';
 import { LayoutComponent } from './layout/layout.component';
 import { MenuComponent } from './menu/menu.component';
 import { StatusComponent } from './status/status.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HoldableDirective,
     LayoutComponent,
-    MenuComponent,
-    StatusComponent
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +28,8 @@ import { StatusComponent } from './status/status.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FileUploadModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule
   ],
   providers: [AudioRecordingService],
   bootstrap: [AppComponent]

@@ -1,177 +1,37 @@
-<div class="row animated fadeInRight fast overflow-col">
-  <div class="col">
-    <table class="table table-dark table-striped">
-      <thead>
-        <th>
-          Proceso
-        </th>
-        <th>
-          Memoria
-        </th>
-        <th>
-          CPU
-        </th>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
+<div class="row h-100">
+  <div class="col-xl-4 col-lg-4 mb-3 animated fadeInLeft fast">
+    <div class="status mx-auto text-center mb-4">
+      <app-status [memPercentUsage]="memPercentUsage" [cpuPercentUsage]="cpuPercentUsage"></app-status>
+    </div>
+  </div>
 
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-        <tr>
-          <td class="process">
-            icon nombre
-          </td>
-          <td>
-            12%
-          </td>
-          <td>
-            32%
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col animated fadeInRight fast overflow-col-container">
+    <div class="overflow-col">
+        <table class="table table-dark table-striped">
+            <thead>
+              <th>
+                Id
+              </th>
+              <th>
+                Proceso
+              </th>
+              <th>
+                Memoria
+              </th>
+              <th>
+                CPU
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let process of processList" (click)="killProcess(process.command)">
+                <td>{{ process.processID }}</td>
+                <td>{{ process.command }}</td>
+                <td>{{ process.cpuUsage }}%</td>
+                <td>{{ process.memUsage }}%</td>
+              </tr>
+            </tbody>
+          </table>  
+    </div>
+    
   </div>
 </div>
