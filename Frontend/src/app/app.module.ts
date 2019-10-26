@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AudioRecordingService } from './audio-recording.service';
-import { HoldableDirective } from './holdable.directive';
+import { HoldableDirective } from './directives/holdable.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,7 +11,10 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AppRoutingModule } from './app.routes.module';
 import { LayoutComponent } from './layout/layout.component';
 import { MenuComponent } from './menu/menu.component';
-import { StatusComponent } from './status/status.component';
+import { SharedModule } from './shared/shared.module';
+import { RecordComponent } from './record/record.component';
+import { StoreModule } from '@ngrx/store';
+import { contextReducer, navReducer, actionReducer } from './ngrx/command/command.reducers';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { StatusComponent } from './status/status.component';
     HoldableDirective,
     LayoutComponent,
     MenuComponent,
-    StatusComponent
+
+    RecordComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,12 @@ import { StatusComponent } from './status/status.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FileUploadModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule,
+    StoreModule.forRoot({ routeReducer: navReducer,
+                          contextReducer: contextReducer,
+                          actionReducer: actionReducer 
+                        })
   ],
   providers: [AudioRecordingService],
   bootstrap: [AppComponent]

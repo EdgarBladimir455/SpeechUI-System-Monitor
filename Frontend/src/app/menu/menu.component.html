@@ -1,11 +1,5 @@
 <div class="row h-100">
-  <div class="col-xl-4 col-lg-4 mb-3 ">
-    <div class="status mx-auto text-center mb-4">
-      <app-status></app-status>      
-    </div>
-  </div>
-
-  <div class="col-xl-8 col-lg-8 overflow-col-container"> 
-    <router-outlet (activate)="outlet()"></router-outlet>
+  <div class="col-xl-12 col-lg-12" [@routeAnimation]="prepareRoute(outlet)" > 
+    <router-outlet #outlet="outlet" (activate)="activate($event)"></router-outlet>
   </div>
 </div>

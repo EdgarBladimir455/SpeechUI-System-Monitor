@@ -8,20 +8,23 @@
     <div class="col">
         <div class="status-progress mb-3">
           <div class="status-circle mx-auto">
-            <span class="progress-percent">{{ progress }}%</span>
+            <span class="progress-percent" *ngIf="statView == 1">{{ memPercentUsage | number:'2.1-1'}}%</span>
           </div>          
         </div>
     </div>
 
-    <div class="col-12">
-        <span>Capacidad: 478.9 GB</span>
+    <div class="col-12 disk-info" *ngIf="statView == 3">
+      <div class="col-12">
+          <span>Capacidad: 478.9 GB</span>
+      </div>
+      <div class="col-12">
+          <span>Usado: 103.9 GB</span>
+      </div>
+      <div class="col-12">
+          <span>Disponible: 375 GB</span>
+      </div>
     </div>
-    <div class="col-12">
-        <span>Usado: 103.9 GB</span>
-    </div>
-    <div class="col-12">
-        <span>Disponible: 375 GB</span>
-    </div>
+
 </div>
 
 <div class="status-bar-container">

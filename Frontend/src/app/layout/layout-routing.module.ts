@@ -5,7 +5,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule],
   exports: [RouterModule]
 })
 export class LayoutRoutingModule { }

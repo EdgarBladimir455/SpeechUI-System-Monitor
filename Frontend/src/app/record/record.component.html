@@ -1,0 +1,9 @@
+<audio [src]="blobUrl" autoplay="true" id="audio"></audio>
+
+<div *ngIf="microphoneAllowed">
+  <div class="bg-microphone"></div>
+    <div class="link-r" holdable (start)="startRecording()" (stop)="stopRecording()"></div>
+    <span class="navbar-brand text-white">
+      <i class="fas fa-microphone" [@zoom]="isRecording" [@audioError]="audioError"></i>
+    </span>
+</div>

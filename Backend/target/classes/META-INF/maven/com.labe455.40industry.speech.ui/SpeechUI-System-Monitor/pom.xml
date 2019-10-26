@@ -14,6 +14,16 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SpeechUI-System-Monitor</name>
 	<description>Backend para el monitor del sistema controlado por voz</description>
+	
+	<resources>
+    <resource>
+        <directory>src/main/resources</directory>
+    </resource>
+    <resource>
+        <directory>static</directory>
+        <targetPath>static</targetPath>
+    </resource>
+	</resources>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -53,7 +63,7 @@
 		<dependency>
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-speech</artifactId>
-			<version>1.20.0</version>
+			<version>1.13.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -65,13 +75,14 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
 		</dependency>
-
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webflux</artifactId>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-texttospeech</artifactId>
+			<version>0.101.0-beta</version>
 		</dependency>
 
-		<!-- Exclusion de jar que causan conflictos con las libs que se usan para WebSockets -->
+		<!-- Exclusion de jar que causan conflictos con las libs que se usan para 
+			WebSockets -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -92,6 +103,7 @@
 		</dependency>
 
 	</dependencies>
+
 
 	<build>
 		<plugins>

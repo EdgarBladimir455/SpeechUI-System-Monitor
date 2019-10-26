@@ -1,0 +1,114 @@
+<div class="command-list flip-in-ver-right">
+  <div class="row mb-3">
+    <div class="col-12">
+      <h5>
+        <i class="fas fa-list-ul"></i>
+        Comandos disponibles para control por voz
+      </h5>
+    </div>
+  </div>
+
+  <div class="row w-100 p-2">
+    <div class="col-12">
+      <div class="drop-option dropdown" (click)="expandBody(1)">
+        <h6>Comandos generales (se pueden usar en cualquier pantalla)</h6>
+        <div class="spacer"></div>
+        <i class="fas fa-angle-down" *ngIf="currentBody !== 1"></i>
+        <i class="fas fa-angle-up" *ngIf="currentBody === 1"></i>
+      </div>
+      <div class="col-12" [@enterAnimation] *ngIf="currentBody === 1">
+        <div class="row drop-row">
+          <div class="col-md-6 col-lg-6 col-xl-6">
+            <ul class="pl-1">
+              <li class="mt-3">
+                <span class="drop-badge">
+                  "Abrir" + nombre de la pantalla/sección
+                </span>
+              </li>
+              <span>Abre la pantalla/sección especificada</span>
+
+              <li class="mt-3">
+                <span class="drop-badge">
+                  "Inicio"
+                </span>
+              </li>
+              <span>Muestra la pantalla principal</span>
+
+              <li class="mt-3">
+                <span class="drop-badge">
+                  "Aceptar" (Modal/Formulario)
+                </span>
+              </li>
+              <span>Lo mismo que hacer click en el boton Aceptar</span>
+
+              <li class="mt-3">
+                <span class="drop-badge">
+                  "Cancelar" (Modal/Formulario)
+                </span>
+              </li>
+              <span>Lo mismo que hacer click en el boton Aceptar</span>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row w-100 p-2">
+    <div class="col-12">
+      <div class="drop-option dropdown" (click)="expandBody(2)">
+        <h6>Formularios/Inputs (Comandos Tipo 2)</h6>
+        <div class="spacer"></div>
+        <i class="fas fa-angle-down" *ngIf="currentBody !== 2"></i>
+        <i class="fas fa-angle-up" *ngIf="currentBody === 2"></i>
+      </div>
+      <div class="col-12" [@enterAnimation] *ngIf="currentBody === 2">
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xl-6">
+            <ul class="pl-1">
+              <li class="mt-3">
+                <span class="drop-badge">
+                  "Guardar"
+                </span>
+              </li>
+              <span>Guarda la configuración actual</span>
+
+              <li class="mt-3">
+                <span class="drop-badge">
+                  "Valores iniciales"
+                </span>
+              </li>
+              <span>Llena el formulario con valores por defecto</span>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="row w-100 p-2">
+    <div class="col-12">
+      <div class="drop-option dropdown" (click)="expandBody(3)">
+        <h6>Pantalla: Aplicaciones en ejecución</h6>
+        <div class="spacer"></div>
+        <i class="fas fa-angle-down" *ngIf="currentBody !== 3"></i>
+        <i class="fas fa-angle-up" *ngIf="currentBody === 3"></i>
+      </div>
+      <div class="col-12" [@enterAnimation] *ngIf="currentBody === 3">
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xl-6">
+            <ul class="pl-1">
+              <li class="mt-3">
+                <span class="drop-badge">
+                  "Terminar " + numero de la aplicación/proceso
+                </span>
+              </li>
+              <span>Termina la aplicación/proceso especificado</span>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

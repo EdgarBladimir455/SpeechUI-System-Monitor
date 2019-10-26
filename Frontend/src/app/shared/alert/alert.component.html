@@ -1,0 +1,17 @@
+<div class="container alert-container shake-horizontal">
+  <div class="row text-center">
+    <div class="col alert-header">
+      <h5>{{title}}</h5>
+    </div>
+  </div>
+  <div class="row text-center alert-body">
+    <div class="col-12 mb-3">
+      <span>{{msg}}</span>
+    </div>
+
+    <div class="col-12">
+      <button class="btn alert-button mr-3" (click)="acept()">Aceptar</button>
+      <button class="btn alert-button alert-button-cancel" *ngIf="cancelBtn" (click)="cancel()">Cancelar</button>
+    </div>
+  </div>
+</div>

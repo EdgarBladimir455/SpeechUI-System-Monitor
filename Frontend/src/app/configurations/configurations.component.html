@@ -1,0 +1,176 @@
+<div class="configurations flip-in-ver-right">
+  <form class="form" novalidate="true" (ngSubmit)="saveSettings()">
+    <div class="row mb-3">
+      <div class="col-12">
+        <h5>
+          <i class="fas fa-cog"></i>
+          Configuración del sistema
+        </h5>
+      </div>
+    </div>
+    <div class="row w-100 p-2">
+      <div class="col-12">
+        <div class="drop-option dropdown" (click)="expandBody(1)">
+          <h6>Configuración del servidor</h6>
+          <div class="spacer"></div>
+          <i class="fas fa-angle-down" *ngIf="currentBody !== 1"></i>
+          <i class="fas fa-angle-up" *ngIf="currentBody === 1"></i>
+        </div>
+        <div class="col-12" [@enterAnimation] *ngIf="currentBody === 1">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xl-6 row">
+              <div class="form-group input-group-sm col-md-3">
+                <label for="inputState">Protocolo</label>
+                <select id="inputState" class="form-control">
+                  <option selected>https</option>
+                  <option>http</option>
+                </select>
+              </div>
+             
+              <div class="form-group input-group-sm col-md-4">
+                <label for="ip">Servidor IP </label>
+                <input
+                  [(ngModel)]="ipModel"
+                  type="text"
+                  class="form-control"
+                  name="ip"
+                />
+              </div>
+
+              <span
+              >  *IP del servidor a controlar (debe tener instalada la
+              aplicación).</span
+            >
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row w-100 p-2">
+      <div class="col-12">
+        <div class="drop-option dropdown" (click)="expandBody(2)">
+          <h6>Mensajes del sistema (SOLO comandos por voz)</h6>
+          <div class="spacer"></div>
+          <i class="fas fa-angle-down" *ngIf="currentBody !== 2"></i>
+          <i class="fas fa-angle-up" *ngIf="currentBody === 2"></i>
+        </div>
+        <div class="col-12" [@enterAnimation] *ngIf="currentBody === 2">
+          <span
+            >Las siguientes opciónes solo aplican para la función de comandos
+            por voz</span
+          >
+          <div class="form-check">
+            <input
+              [(ngModel)]="spConfMsgModel"
+              class="form-check-input"
+              type="checkbox"
+              id="spConfMsg"
+              name="spConfMsg"
+            />
+            <label class="form-check-label" for="spConfMsg">
+              Dictar mensajes de confirmación
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              [(ngModel)]="spErrorMsgModel"
+              class="form-check-input"
+              type="checkbox"
+              id="spErrorMsg"
+              name="spErrorMsg"
+            />
+            <label class="form-check-label" for="spErrorMsg">
+              Dictar mensajes de errores
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input
+              [(ngModel)]="spRespMsgModel"
+              class="form-check-input"
+              type="checkbox"
+              id="spRespMsg"
+              name="spRespMsg"
+            />
+            <label class="form-check-label" for="spRespMsg">
+              Dictar respuestas de la aplicación
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+
+    <div class="row w-100 p-2">
+      <div class="col-12">
+        <div class="drop-option dropdown" (click)="expandBody(3)">
+          <h6>Control por voz</h6>
+          <div class="spacer"></div>
+          <i class="fas fa-angle-down" *ngIf="currentBody !== 3"></i>
+          <i class="fas fa-angle-up" *ngIf="currentBody === 3"></i>
+        </div>
+
+        <div class="col-12" [@enterAnimation] *ngIf="currentBody === 3">
+          <div class="form-check">
+            <input
+              [(ngModel)]="speechTypeModel"
+              class="form-check-input"
+              type="radio"
+              value="1"
+              name="speechType"
+              id="speechType1"
+            />
+            <label class="form-check-label" for="speechType1">
+              Tipo 1 (Grabar audio)
+            </label>
+          </div>
+          <ul>
+            <li>Presione el microfono de la esquina superior derecha.</li>
+            <li>Dicte un comando.</li>
+            <li>Deje de presionar para ejecutar el comando.</li>
+          </ul>
+
+          <div class="form-check">
+            <input
+              [(ngModel)]="speechTypeModel"
+              class="form-check-input"
+              type="radio"
+              value="2"
+              name="speechType"
+              id="speechType2"
+            />
+            <label class="form-check-label" for="speechType2">
+              Tipo 2 ("Java Speech")
+            </label>
+          </div>
+          <ul>
+            <li>Diga "Java Speech" en el microfono.</li>
+            <li>Dicte el comando a ejecutar.</li>
+            <li>
+              Despues de ejecutar el comando (correcto o con error) debera
+              volver a repetir los pasos anteriores.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row mt-3">
+      <div class="col-12">
+        <button
+          type="submit"
+          class="btn alert-button mr-3"
+          [disabled]="invalid()"
+        >
+          Guardar
+        </button>
+        <button class="btn alert-button" (click)="defaultValues()">
+          Valores por defecto
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
