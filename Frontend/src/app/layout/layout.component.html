@@ -1,13 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="bg-home"></div>
+  <div class="link-l" [routerLink]="['/menu/opciones']"></div>
   <span class="navbar-brand text-white">
     <i class="fas fa-home" *ngIf="inHome"></i>
     <i
       class="fas fa-arrow-left"
-      *ngIf="!inHome"
-      [routerLink]="['/menu/opciones']"
+      *ngIf="!inHome"      
     ></i>
   </span>
+
+  <span class="spacer"></span>
+
+  <!-- <div class="bg-microphone"></div>
+  <div class="link-r" (click)="record()" holdable ()></div>
+  <span class="navbar-brand text-white">
+    <i class="fas fa-microphone"></i>
+  </span> -->
+  <app-record></app-record>
 </nav>
 
 <div class="loading" *ngIf="showAlert && !loading">

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouteService } from '../services/route.service';
 import { BashService } from '../services/bash.service';
 import { Subscription } from 'rxjs';
-import { Process } from '../interfaces/system';
+import { Process } from '../model/system';
 import { LoadingService } from '../services/loading.service';
 import { AlertService } from '../services/alert.service';
 

@@ -3,6 +3,8 @@ import { RouteService } from '../services/route.service';
 import { LoadingService } from '../services/loading.service';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../services/alert.service';
+import { Store, select } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -20,7 +22,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   constructor(private routeService: RouteService, 
               private loadingService: LoadingService,
-              private alertService: AlertService) { }
+              private alertService: AlertService,
+              private router: Router,
+              private store: Store<{ route: string }>) { }
 
   ngOnInit() {
     this.routeSubscription = this.routeService.routeListener().subscribe(inHome => {
@@ -33,6 +37,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
     this.alertSubscription = this.alertService.alertObservable().subscribe(showAlert => {      
       this.showAlert = showAlert;
+    });
+
+    this.store.pipe(select('routeReducer')).subscribe(route => {
+      console.log("nueva ruta");      
+      this.router.navigate([route]);
     });
   }
   
@@ -48,6 +57,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
     if (this.alertSubscription && !this.alertSubscription.closed) {
       this.alertSubscription.unsubscribe();
     }
+  }
+
+  record() {
+    console.log("grabando audio");    
   }
 
 }

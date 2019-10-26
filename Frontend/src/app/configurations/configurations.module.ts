@@ -1,13 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConfigurationsComponent } from './configurations.component';
 
+import { ConfigurationsRoutingModule } from './configurations-routing.module';
+import { ConfigurationsComponent } from './configurations.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [ConfigurationsComponent],
+  declarations: [
+    ConfigurationsComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    ConfigurationsRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class ConfigurationsModule { }
