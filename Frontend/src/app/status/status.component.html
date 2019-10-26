@@ -13,15 +13,18 @@
         </div>
     </div>
 
-    <div class="col-12">
-        <span>Capacidad: 478.9 GB</span>
+    <div class="col-12 disk-info" *ngIf="statView == 3">
+      <div class="col-12">
+          <span>Capacidad: 478.9 GB</span>
+      </div>
+      <div class="col-12">
+          <span>Usado: 103.9 GB</span>
+      </div>
+      <div class="col-12">
+          <span>Disponible: 375 GB</span>
+      </div>
     </div>
-    <div class="col-12">
-        <span>Usado: 103.9 GB</span>
-    </div>
-    <div class="col-12">
-        <span>Disponible: 375 GB</span>
-    </div>
+
 </div>
 
 <div class="status-bar-container">

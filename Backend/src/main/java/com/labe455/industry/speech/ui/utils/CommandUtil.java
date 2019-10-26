@@ -10,6 +10,7 @@ import java.util.List;
 import com.labe455.industry.speech.ui.system.monitor.model.Process;
 
 import com.labe455.industry.speech.ui.exceptions.CommandNotFoundException;
+import com.labe455.industry.speech.ui.exceptions.CommandNotValidException;
 
 /**
  * Utilidad general para obtener usar comandos del sistema operativo linux
@@ -114,14 +115,14 @@ public class CommandUtil {
 
 	}
 
-	public static void killProcess(String processName) throws IOException, CommandNotFoundException {
-		ProcessBuilder builder = new ProcessBuilder("killall", processName);
+	public static void killProcess(String pid) throws IOException, CommandNotValidException {
+		ProcessBuilder builder = new ProcessBuilder("kill", pid);
 		java.lang.Process javaProc = builder.start();
 
 		try (BufferedReader stdin = new BufferedReader(new InputStreamReader(javaProc.getErrorStream()))) {
 			String line;
 			while ((line = stdin.readLine()) != null) {
-				throw new CommandNotFoundException("No se pudo terminar el proceso, compruebe que este siga en ejecución o contacte al administrador");
+				throw new CommandNotValidException("No se pudo terminar el proces o");
 			}
 
 		}

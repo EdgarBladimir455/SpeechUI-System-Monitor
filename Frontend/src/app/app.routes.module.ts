@@ -4,14 +4,16 @@ import { MenuComponent } from './menu/menu.component';
 
 
 const routes: Routes = [
-  { path:'menu',
+  { path:'bash',
     component:MenuComponent,
     children: [
-      {path:'opciones', loadChildren: './menu-options/menu-options.module#MenuOptionsModule'},
-      {path:'procesos', loadChildren: './process-list/process-list.module#ProcessListModule'}
+      {path:'menu', loadChildren: './menu-options/menu-options.module#MenuOptionsModule', data: {animation:'menu'}},
+      {path:'configuracion', loadChildren: './configurations/configurations.module#ConfigurationsModule', data: {animation: 'conf'}},
+      {path:'procesos', loadChildren: './process-list/process-list.module#ProcessListModule'},
+      {path:'comandos', loadChildren: './command-list/command-list.module#CommandListModule'}
     ]
   },
-  {path:'**', redirectTo:'menu/opciones'}
+  {path:'**', redirectTo:'bash/menu'}
 ];
 
 @NgModule({

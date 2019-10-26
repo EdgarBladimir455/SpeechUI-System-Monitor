@@ -1,0 +1,10 @@
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/utils/CommandUtil.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/service/VoiceCommandService.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/system/monitor/model/Process.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/system/monitor/controller/VoiceCommandController.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/system/monitor/controller/SystemMonitorController.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/WebSocketConfiguration.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/model/Command.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/exceptions/CommandNotFoundException.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/SpeechUiSystemMonitorApplication.java
+/home/labe455/eclipse-workspace/SpeechUI-System-Monitor/Backend/src/main/java/com/labe455/industry/speech/ui/system/monitor/websocket/SystemMonitorWebSocketHandler.java

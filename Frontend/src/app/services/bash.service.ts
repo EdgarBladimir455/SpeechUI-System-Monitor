@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
-import { Process } from '../interfaces/system';
+import { Process } from '../model/system';
 import { AlertService } from './alert.service';
 import { LoadingService } from './loading.service';
 import { HttpClient } from '@angular/common/http';
@@ -38,36 +38,17 @@ export class BashService {
 
     this.source.addEventListener('open', ev => {
       this.loadingService.setLoading(false);
-      console.log('nueva conexion');      
     });
 
     this.source.addEventListener('error', error => {
       this.loadingService.setLoading(false);
-      console.log('Connection closed');   
-      this.errorHandler(error);      
+      // this.errorHandler(error);      
     });
 
     this.source.addEventListener('heartBeat', message => {
       // console.log('keepalive message');
     });
 
-  }
-
-  /**
-   * Implementar despues, para que realice la reconexion
-   * debido al timeout del servidor
-   */
-  processHeartBeat() {
-    this.timeout = setInterval(() => {
-                      if (this.source.readyState !== 2) {
-                        this.connect();
-                        console.log('nueva sesion');
-                        
-                      } else {
-                        clearInterval(this.timeout);
-                        console.log('todas las sesiones cerradas');
-                      }
-                    }, 10000);
   }
 
   processObservable() {
@@ -89,15 +70,13 @@ export class BashService {
         errorMsg = 'Error en el SSE';
       }    
     } else {
-      errorMsg = error;
-    }
+      errorMsg = error.error;
+    }    
 
-    console.log(errorMsg);
-    
-    // this.alertService.error('¡Error!', this.defaultErrorMsg, false)
-    //                      .then( resolve => {                            
-    //                             }, reject => {
-    //                       });
+    this.alertService.newAlert('¡Error!', errorMsg, false)
+                         .then( resolve => {                            
+                                }, reject => {
+                          });
   }
 
   killProcess(name: string) {
@@ -107,12 +86,13 @@ export class BashService {
                        this.loadingService.setLoading(true);
                        this.http.get(this.url+'/killprocess?name='+name, { responseType:'text' as 'json' })
                                 .subscribe(response => {
+                                  this.loadingService.setLoading(false);
                                  console.log(response);
                                  
                                 }, error => {
-                                  this.errorHandler(error);
-                                }, () => {
+                                  console.log(error);                                  
                                   this.loadingService.setLoading(false);
+                                  this.errorHandler(error);
                                 });
                      }, reject => {
                      });

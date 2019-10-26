@@ -1,5 +1,6 @@
-<div class="row" #options>
-  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 option">
+<div class="row flip-in-ver-right">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(1)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 1">
+      
     <div class="card mx-auto text-center h-100">
       <div class="card-body">
         <h5 class="card-title">Mantenimiento</h5>
@@ -26,8 +27,8 @@
     </div>
   </div>
 
-  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 option">
-    <div class="card mx-auto text-center h-100">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(2)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 2">
+    <div class="card mx-auto text-center h-100" (click)="toSettings()">
       <div class="card-body">
         <h5 class="card-title">Configuración</h5>
 
@@ -39,7 +40,7 @@
           </div>
 
           <div class="option-title-s3 mt-2">
-            <div>
+            <div class="option-container">
               <span class="option-title-s2-text">
                 Realice configuraciones generales del sistema
               </span>
@@ -50,7 +51,7 @@
     </div>
   </div>
 
-  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 option">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(3)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 3">
     <div class="card mx-auto text-center h-100">
       <div class="card-body">
         <h5 class="card-title">Liberar espacio</h5>
@@ -64,7 +65,7 @@
           </div>
 
           <div class="option-title-s2 mt-2">
-            <div>
+            <div class="option-container">
               <span class="option-title-s2-text">
                 388 MB de espacio disponible para liberar
               </span>
@@ -75,10 +76,35 @@
     </div>
   </div>
 
-  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 option">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(5)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 5">
+      <div class="card mx-auto text-center h-100" (click)="toCommandList()">
+        <div class="card-body">
+          <h5 class="card-title">Lista de comandos disponibles</h5>
+  
+          <div class="option-body">
+            <div class="option-icon">
+              <div class="option-icon-container">
+                <i class="fas fa-user primary-icon"></i>
+                <i class="fas fa-comment sub-check"></i>
+              </div>
+            </div>
+  
+            <div class="option-title-s2 mt-2">
+              <div class="option-container">
+                <span class="option-title-s2-text">
+                  Lista con los comandos disponibles para usar en esta aplicación
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
+
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(4)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 4">
     <div class="card mx-auto text-center h-100" (click)="toProcessList()">
       <div class="card-body">
-        <h5 class="card-title">Aplicaciones en ejecución</h5>
+        <h5 class="card-title">Procesos en ejecución</h5>
 
         <div class="option-body">
           <div class="option-icon">
@@ -88,9 +114,9 @@
           </div>
 
           <div class="option-title-s2 mt-2">
-            <div>
+            <div class="option-container">
               <span class="option-title-s2-text">
-                Liste las aplicaciones actualmente en ejecución
+                Liste los procesos actualmente en ejecución
               </span>
             </div>
           </div>
@@ -98,4 +124,6 @@
       </div>
     </div>
   </div>
+
+
 </div>
