@@ -85,7 +85,7 @@ public class VoiceCommandController {
 	private final String twoCommandList = "abrir terminar expandir";
 	private final String twoCommandParamList = "proceso procesos comando comandos configuracion";		
 	
-	private String recognizeStreaming(MultipartFile audioRecord) throws TranscriptionNotFound {
+	private String recognizeStreaming(MultipartFile audioRecord) throws CommandNotValidException {
 		// Instantiates a client with GOOGLE_APPLICATION_CREDENTIALS
 		  try (SpeechClient speech = SpeechClient.create()) {
 
@@ -180,7 +180,7 @@ public class VoiceCommandController {
 				responses = responseObserver.future().get();
 				
 				if (responses == null) {
-					throw new TranscriptionNotFound("No se pudo transcribir el audio");
+					throw new CommandNotValidException("No entendi");
 				}
 				
 				System.out.println("Llego una respuesta: ");
@@ -196,6 +196,8 @@ public class VoiceCommandController {
 				      return alternative.getTranscript();
 				    }
 				
+			} catch (IndexOutOfBoundsException out) {
+				throw new CommandNotValidException("No entendi");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -322,7 +324,7 @@ public class VoiceCommandController {
 			}
 			
 			if (isNumeric(parts[1])) {
-				CommandUtil.killProcess(parts[1]);
+				CommandUtil.killProcessById(parts[1]);
 				commandResponse.setSpeechResponse(true);
 				commandResponse.setSpeechText("Proceso terminado con exito");
 			} else {

@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.labe455.industry.speech.ui.system.monitor.model.Process;
-
-import com.labe455.industry.speech.ui.exceptions.CommandNotFoundException;
+import com.labe455.industry.speech.ui.system.monitor.model.ProcessWrapper;
 import com.labe455.industry.speech.ui.exceptions.CommandNotValidException;
 
 /**
@@ -20,10 +20,8 @@ import com.labe455.industry.speech.ui.exceptions.CommandNotValidException;
  * @version 1.0.0 10/10/2019
  */
 public class CommandUtil {
-
-	public static List<Process> getProcessInfo() throws IOException {
-		List<Process> processList = new ArrayList<Process>();
-
+	
+	private static String getUser() throws IOException {
 		ProcessBuilder builder = new ProcessBuilder("whoami");
 		java.lang.Process javaProc = builder.start();
 		String currentUser = "";
@@ -33,9 +31,17 @@ public class CommandUtil {
 				currentUser = line;
 			}
 		}
+		
+		return currentUser;
+	}
 
-		builder = new ProcessBuilder("top", "-b", "-n", "1");
-		javaProc = builder.start();
+	public static ProcessWrapper getProcessInfo() throws IOException {
+		List<Process> processList = new ArrayList<Process>();
+
+		String currentUser = getUser();
+
+		ProcessBuilder builder = new ProcessBuilder("top", "-b", "-n", "1");
+		java.lang.Process javaProc = builder.start();
 
 		try (BufferedReader stdin = new BufferedReader(new InputStreamReader(javaProc.getInputStream()))) {
 
@@ -99,29 +105,85 @@ public class CommandUtil {
 		}
 		
 		processList.sort(Comparator.comparing(Process::getCommand));
+		
+		List<Double> cpuProcessList = processList.stream()
+											 	 .map(Process::getCpuUsage)
+											 	 .collect(Collectors.toList());
+		
+		List<Double> memProcessList = processList.stream()
+											 	 .map(Process::getMemUsage)
+											 	 .collect(Collectors.toList());			
+		
+		ProcessWrapper processWrapper = new ProcessWrapper();
+		
+		processWrapper.setProcessList(processList);
+		processWrapper.setCores(getCores());
+		processWrapper.setCpuUsage(getCPUUsage(cpuProcessList));
+		processWrapper.setMemUsage(getMemoryUsage(memProcessList));		
 
-		return processList;
+		return processWrapper;
 	}
 
-	public static void getMemoryInfo() {
-
+	public static double getMemoryUsage(List<Double> memPorcessList) {
+		double memUsage = 0;
+		
+		for (double memProcess : memPorcessList) {
+			memUsage += memProcess;
+		}
+		return memUsage;
 	}
 
-	public static void getCPUInfo() {
-
+	public static double getCores() throws IOException {
+		ProcessBuilder builder = new ProcessBuilder("nproc");
+		java.lang.Process javaProc = builder.start();
+		double cores = 0;
+		try (BufferedReader stdin = new BufferedReader(new InputStreamReader(javaProc.getInputStream()))) {
+			String line;
+			while ((line = stdin.readLine()) != null) {
+				cores = Double.parseDouble(line);
+			}
+		}
+		
+		return cores;
+	}
+	
+	public static double getCPUUsage(List<Double> cpuPorcessList) throws IOException {
+		double cores = getCores();
+		double cpuUsage = 0;
+		for (double cpuProcess : cpuPorcessList) {
+			cpuUsage += cpuProcess;
+		}
+		
+		cpuUsage = cpuUsage / cores;
+		return cpuUsage;
 	}
 
 	public static void getDiskInfo() {
 
 	}
 
-	public static void killProcess(String pid) throws IOException, CommandNotValidException {
+	public static void killProcessByName(String name) throws IOException, CommandNotValidException {
+		ProcessBuilder builder = new ProcessBuilder("killall", name);
+		java.lang.Process javaProc = builder.start();
+
+		try (BufferedReader stdin = new BufferedReader(new InputStreamReader(javaProc.getErrorStream()))) {
+			String line;
+			while ((line = stdin.readLine()) != null) {
+				System.out.println(line);
+				throw new CommandNotValidException("No se pudo terminar el proces o");
+			}
+
+		}
+	}
+	
+	public static void killProcessById(String pid) throws IOException, CommandNotValidException {
 		ProcessBuilder builder = new ProcessBuilder("kill", pid);
 		java.lang.Process javaProc = builder.start();
 
 		try (BufferedReader stdin = new BufferedReader(new InputStreamReader(javaProc.getErrorStream()))) {
 			String line;
 			while ((line = stdin.readLine()) != null) {
+				System.out.println(line);
 				throw new CommandNotValidException("No se pudo terminar el proces o");
 			}
 

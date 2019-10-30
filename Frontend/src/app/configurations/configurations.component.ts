@@ -97,7 +97,7 @@ export class ConfigurationsComponent implements OnInit {
                         this.prepareObject();
                         localStorage.setItem('settings', JSON.stringify(this.settings) );
 
-                        this.alertService.newAlert('Exito', 'Configuración guardada con exito', true, 'information');
+                        this.alertService.newAlert('Exito', 'Configuración guardada con exito', false, 'information');
                      }, cancel => {
 
                      });         

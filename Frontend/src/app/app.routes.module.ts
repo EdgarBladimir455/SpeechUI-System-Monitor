@@ -13,7 +13,7 @@ const routes: Routes = [
       {path:'comandos', loadChildren: './command-list/command-list.module#CommandListModule'}
     ]
   },
-  {path:'**', redirectTo:'bash/menu'}
+  {path:'**', redirectTo:'bash/menu', pathMatch:'full'}
 ];
 
 @NgModule({

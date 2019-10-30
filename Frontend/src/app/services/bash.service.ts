@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
-import { Process } from '../model/system';
+import { Process, ProcessWrapper } from '../model/system';
 import { AlertService } from './alert.service';
 import { LoadingService } from './loading.service';
 import { HttpClient } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class BashService {
 
   private url = 'http://localhost:8080/monitor';
-  private processBehaviorSubject = new ReplaySubject<Process[]>(1);
+  private processBehaviorSubject = new ReplaySubject<ProcessWrapper>(1);
   private source: EventSource;
   private timeout;
 
@@ -38,10 +38,14 @@ export class BashService {
 
     this.source.addEventListener('open', ev => {
       this.loadingService.setLoading(false);
+      console.log(ev);
+      
     });
 
     this.source.addEventListener('error', error => {
       this.loadingService.setLoading(false);
+      console.log(error);
+      
       // this.errorHandler(error);      
     });
 

@@ -40,8 +40,10 @@ export class LayoutComponent implements OnInit, OnDestroy {
     });
 
     this.store.pipe(select('routeReducer')).subscribe(route => {
-      console.log("nueva ruta");      
-      this.router.navigate([route]);
+      if (route != '' && route != undefined) {
+        console.log("nueva ruta: "+route);     
+        this.router.navigate([route]);
+      }       
     });
   }
   

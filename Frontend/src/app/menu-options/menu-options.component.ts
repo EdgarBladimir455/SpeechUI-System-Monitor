@@ -8,8 +8,8 @@ import { trigger, style, animate, transition, state } from '@angular/animations'
   templateUrl: './menu-options.component.html',
   animations: [
     trigger('enterAnimation', [
-      state('true', style({ bottom: '1.25rem' })),
-      state('false', style({ bottom: '0rem' })),
+      state('true', style({ transform: 'scale(0.88)' })),
+      state('false', style({ transform: 'scale(1)' })),
       transition('false <=> true', animate(100))
     ])
   ]
