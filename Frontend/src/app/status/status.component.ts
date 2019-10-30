@@ -24,7 +24,9 @@ export class StatusComponent implements OnInit {
   }
 
   changeStatView(view:number) {
-    this.statView = view;
+    if (view > 0) {
+      this.statView = view;
+    }
   }
 
 }

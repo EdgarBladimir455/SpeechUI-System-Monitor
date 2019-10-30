@@ -13,6 +13,12 @@ export interface Process {
   command: string;
 }
 
+export interface ProcessWrapper {
+  processList: Process[];
+  cpuUsage: number;
+  memUsage: number;
+}
+
 export class Settings {
   ip: string = 'localhost:8080';
   spConfMsg: boolean = false;

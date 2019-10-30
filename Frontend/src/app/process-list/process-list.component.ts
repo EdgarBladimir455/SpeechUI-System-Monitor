@@ -17,6 +17,9 @@ export class ProcessListComponent implements OnInit, OnDestroy {
   public cpuPercentUsage: number = 0;
   public memPercentUsage: number = 0;
 
+  public filter = '';
+
+
   constructor(private routeService: RouteService,
               private loadingService: LoadingService,
               private alertService: AlertService,
@@ -29,16 +32,16 @@ export class ProcessListComponent implements OnInit, OnDestroy {
     
     this.processSubscription = this.bashService
                                   .processObservable()
-                                  .subscribe(newProcessValues => {
-                                    this.processList = newProcessValues;                                    
-                                    this.cpuPercentUsage = 0;
-                                    this.memPercentUsage = 0;
+                                  .subscribe(newProcessWrapper => {
 
-                                    for (let i=0; i<this.processList.length; i++) {
-                                      this.cpuPercentUsage+=this.processList[i].cpuUsage;
-                                      this.memPercentUsage+=this.processList[i].memUsage;
+                                    if (this.filter !== '') {
+                                      this.processList = newProcessWrapper.processList.filter(process => process.command.includes(this.filter));
+                                    } else {
+                                      this.processList = newProcessWrapper.processList;
                                     }
 
+                                    this.cpuPercentUsage = newProcessWrapper.cpuUsage;
+                                    this.memPercentUsage = newProcessWrapper.memUsage;
                                   });      
   }
 

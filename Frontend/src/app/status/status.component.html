@@ -7,13 +7,21 @@
 <div class="row mb-4">
     <div class="col">
         <div class="status-progress mb-3">
-          <div class="status-circle mx-auto">
-            <span class="progress-percent" *ngIf="statView == 1">{{ memPercentUsage | number:'2.1-1'}}%</span>
-          </div>          
+          <div class="status-circle mx-auto" *ngIf="statView == 1">
+            <span class="progress-percent">{{ memPercentUsage | number:'2.1-1'}}%</span>
+            <hr>
+            <span>Uso RAM</span>
+          </div>
+
+          <div class="status-circle mx-auto" *ngIf="statView == 2">
+              <span class="progress-percent" >{{ cpuPercentUsage | number:'2.1-1'}}%</span>
+              <hr>
+              <span>Uso CPU</span>
+            </div>
         </div>
     </div>
 
-    <div class="col-12 disk-info" *ngIf="statView == 3">
+    <!-- <div class="col-12 disk-info" *ngIf="statView == 3">
       <div class="col-12">
           <span>Capacidad: 478.9 GB</span>
       </div>
@@ -23,7 +31,7 @@
       <div class="col-12">
           <span>Disponible: 375 GB</span>
       </div>
-    </div>
+    </div> -->
 
 </div>
 
@@ -37,14 +45,15 @@
       </div>
       <div class="col-4 status-opt" [ngClass]="{'option-selected': statView === 2}" (click)="changeStatView(2)">
         <span class="mx-auto">
-          <i class="fas fa-hdd"></i>
-        </span>
-      </div>
-      <div class="col-4 status-opt" [ngClass]="{'option-selected': statView === 3}" (click)="changeStatView(3)">
-        <span class="mx-auto">
           <i class="fas fa-microchip"></i>
         </span>
       </div>
+      <div class="col-4 status-opt" [ngClass]="{'option-selected': statView === 3}" (click)="changeStatView(0)">
+        <span class="mx-auto " style="color: gray;">
+          <i class="fas fa-hdd"></i>
+        </span>
+      </div>
+     
     </div>
   </div>
 </div>

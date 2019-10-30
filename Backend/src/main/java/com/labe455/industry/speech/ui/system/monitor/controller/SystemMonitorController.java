@@ -1,8 +1,6 @@
 package com.labe455.industry.speech.ui.system.monitor.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import com.labe455.industry.speech.ui.exceptions.CommandNotFoundException;
 import com.labe455.industry.speech.ui.exceptions.CommandNotValidException;
-import com.labe455.industry.speech.ui.system.monitor.model.Process;
+import com.labe455.industry.speech.ui.system.monitor.model.ProcessWrapper;
 import com.labe455.industry.speech.ui.utils.CommandUtil;
 
 /**
@@ -30,7 +27,7 @@ import com.labe455.industry.speech.ui.utils.CommandUtil;
 @CrossOrigin(origins = "*")
 public class SystemMonitorController {
 	
-	private List<Process> process = new ArrayList<Process>();
+	private ProcessWrapper processWrapper = new ProcessWrapper();
 
 	private SseEmitter emitter;
 
@@ -45,11 +42,11 @@ public class SystemMonitorController {
 			System.out.println(throwable.getCause());
 			if ( this.scheduleThread != null && !this.scheduleThread.isInterrupted()) {
 				System.out.println("Interrumpiendo schedule thread");
+				scheduleThread.interrupt();
 				try {
-					this.scheduleThread.join();
-					this.scheduleThread.interrupt();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					scheduleThread.join();
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
@@ -58,11 +55,11 @@ public class SystemMonitorController {
 			System.out.println("Completando la sesion");
 			if (this.scheduleThread != null && !this.scheduleThread.isInterrupted()) {
 				System.out.println("Interrumpiendo schedule thread");
+				scheduleThread.interrupt();
 				try {
-					this.scheduleThread.join();
-					this.scheduleThread.interrupt();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					scheduleThread.join();
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
@@ -71,56 +68,56 @@ public class SystemMonitorController {
 			System.out.println("Timeout...");
 			if (this.scheduleThread != null && !this.scheduleThread.isInterrupted()) {
 				System.out.println("Interrumpiendo schedule thread");
+				scheduleThread.interrupt();
 				try {
-					this.scheduleThread.join();
-					this.scheduleThread.interrupt();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					scheduleThread.join();
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
 		
 		Runnable runnable = new Runnable() {
+			@SuppressWarnings("static-access")
 			public void run() {
-				while (!Thread.interrupted()) {
-					Thread.yield();
+				while (!scheduleThread.interrupted()) {
+					scheduleThread.yield();
 
 					try {
-						process = CommandUtil.getProcessInfo();
-						emitter.send(process);
-						Thread.sleep(3000);
+						processWrapper = CommandUtil.getProcessInfo();
+						emitter.send(processWrapper);
+						scheduleThread.sleep(3000);
 					} catch (IllegalStateException e) {
 						System.out.println("Se mando mensaje pero ya se habia cerrado la conexion");
 						if (scheduleThread != null && !scheduleThread.isInterrupted()) {
 							System.out.println("Interrumpiendo schedule thread");
+							scheduleThread.interrupt();
+							
 							try {
 								scheduleThread.join();
-								scheduleThread.interrupt();
 							} catch (InterruptedException ex) {
 								ex.printStackTrace();
 							}
+							
+							
 						}
 					} catch (IOException e) {
 						System.out.println("Error al mandar mensaje");
 						if (scheduleThread != null && !scheduleThread.isInterrupted()) {
 							System.out.println("Interrumpiendo schedule thread");
-							try {
-								scheduleThread.join();
-								scheduleThread.interrupt();
-							} catch (InterruptedException ex) {
-								ex.printStackTrace();
-							}
+							scheduleThread.interrupt();
+							
 						}
 					} catch (InterruptedException e) {
 						System.out.println("Error en el thread schedule");
 						if (scheduleThread != null && !scheduleThread.isInterrupted()) {
 							System.out.println("Interrumpiendo schedule thread");
-							try {
-								scheduleThread.join();
-								scheduleThread.interrupt();
-							} catch (InterruptedException ex) {
-								ex.printStackTrace();
-							}
+							scheduleThread.interrupt();
+//							try {
+//								scheduleThread.join();
+//							} catch (InterruptedException ex) {
+//								ex.printStackTrace();
+//							}
 						}
 					}
 					
@@ -145,7 +142,7 @@ public class SystemMonitorController {
 	@GetMapping("/killprocess")
 	public ResponseEntity<String> killProcess(@RequestParam("name") String porcessName) {
 		try {
-			CommandUtil.killProcess(porcessName);			
+			CommandUtil.killProcessByName(porcessName);			
 		} catch (IOException e) {
 			return new ResponseEntity<>("Ocurrio un error inesperado", HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (CommandNotValidException c) {

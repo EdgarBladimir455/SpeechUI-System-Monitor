@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AudioRecordingService } from './audio-recording.service';
 import { HoldableDirective } from './directives/holdable.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +14,7 @@ import { SharedModule } from './shared/shared.module';
 import { RecordComponent } from './record/record.component';
 import { StoreModule } from '@ngrx/store';
 import { contextReducer, navReducer, actionReducer } from './ngrx/command/command.reducers';
+import { AudioRecordingService } from './services/audio-recording.service';
 
 @NgModule({
   declarations: [
