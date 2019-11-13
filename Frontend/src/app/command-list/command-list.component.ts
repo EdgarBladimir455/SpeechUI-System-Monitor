@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { skip } from 'rxjs/operators';
 import { RouteService } from '../services/route.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -41,12 +42,14 @@ import { RouteService } from '../services/route.service';
     )
   ]
 })
-export class CommandListComponent implements OnInit {
+export class CommandListComponent implements OnInit, OnDestroy {
 
   // Contexto de la pantalla
   context: string = 'CommandListComponent';
 
   currentBody: number;
+
+  storeSubscription:Subscription;
 
   constructor(private routeService: RouteService,
               private store: Store<{actionParam: string}>) { }
@@ -54,15 +57,20 @@ export class CommandListComponent implements OnInit {
   ngOnInit() {
     this.routeService.notInHome();
 
-    this.store.pipe(select('actionReducer'), skip(1))
-              .subscribe(actionParam => {
-                console.log("expandiendo una opcion: "+actionParam);                
-                this.expandBody(parseInt(actionParam));
-              });
+    this.storeSubscription = this.store.pipe(select('actionReducer'), skip(1))
+                                       .subscribe(actionParam => {
+                                          console.log("expandiendo una opcion: "+actionParam);                
+                                          this.expandBody(parseInt(actionParam));
+                                       });
   }
 
   expandBody(bodyNumber:number) {    
     this.currentBody = (bodyNumber === this.currentBody)? null : bodyNumber;
   }
 
+  ngOnDestroy(): void {    
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+     }
+  }
 }

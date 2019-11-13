@@ -5,6 +5,7 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
 import { skip } from 'rxjs/operators';
 import { RouteService } from '../services/route.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-configurations',
@@ -42,7 +43,7 @@ import { RouteService } from '../services/route.service';
     )
   ]
 })
-export class ConfigurationsComponent implements OnInit {
+export class ConfigurationsComponent implements OnInit, OnDestroy {
 
   // Contexto de la pantalla
   context: string = 'ConfigurationsComponent';
@@ -55,6 +56,8 @@ export class ConfigurationsComponent implements OnInit {
   speechTypeModel;
   settings;
 
+  storeSubscription:Subscription;
+  
   constructor(private routeService: RouteService,
               private alertService: AlertService,
               private store: Store<{actionParam: string}>) { }
@@ -65,11 +68,11 @@ export class ConfigurationsComponent implements OnInit {
     this.settings = JSON.parse( localStorage.getItem('settings') );
     this.setModels();
     
-    this.store.pipe(select('actionReducer'), skip(1))
-              .subscribe(actionParam => {
-                console.log("expandiendo una opcion: "+actionParam);
-                this.expandBody(parseInt(actionParam));
-              });
+    this.storeSubscription = this.store.pipe(select('actionReducer'), skip(1))
+                                       .subscribe(actionParam => {
+                                          console.log("expandiendo una opcion: "+actionParam);                
+                                          this.expandBody(parseInt(actionParam));
+                                       });
   }
 
   setModels() {
@@ -119,4 +122,9 @@ export class ConfigurationsComponent implements OnInit {
     this.setModels();
   }
 
+  ngOnDestroy(): void {    
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+     }
+  }
 }

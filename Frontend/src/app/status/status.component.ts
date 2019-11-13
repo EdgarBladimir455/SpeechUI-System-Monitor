@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { skip } from 'rxjs/operators';
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.css']
 })
-export class StatusComponent implements OnInit {
+export class StatusComponent implements OnInit, OnDestroy {
 
   // Opcion de la vista
   statView:number = 1;
@@ -19,19 +21,28 @@ export class StatusComponent implements OnInit {
   used:number = 0;
   available:number = 0;
   
+  storeSubscription:Subscription;
+
   constructor(private store: Store<{actionParam: string}>) { }
 
   ngOnInit() {
-    this.store.pipe(select('actionReducer'))
-              .subscribe(actionParam => {
-                this.changeStatView(parseInt(actionParam));
-              });
+    this.storeSubscription = this.store.pipe(select('actionReducer'), skip(1))
+                                 .subscribe(actionParam => {
+                                    console.log("cambiando vista: "+actionParam);                
+                                    this.changeStatView(parseInt(actionParam));
+                             });
   }
 
   changeStatView(view:number) {
     if (view > 0) {
       this.statView = view;
     }
+  }
+
+  ngOnDestroy(): void {
+   if (this.storeSubscription) {
+    this.storeSubscription.unsubscribe();
+   }
   }
 
 }
