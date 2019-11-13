@@ -8,39 +8,32 @@
         </h5>
       </div>
     </div>
-    <div class="row w-100 p-2">
+    <div class="row p-2">
       <div class="col-12">
         <div class="drop-option dropdown" (click)="expandBody(1)">
-          <h6>Configuración del servidor</h6>
+          <h6>1. Configuración del servidor</h6>
           <div class="spacer"></div>
           <i class="fas fa-angle-down" *ngIf="currentBody !== 1"></i>
           <i class="fas fa-angle-up" *ngIf="currentBody === 1"></i>
         </div>
         <div class="col-12" [@enterAnimation] *ngIf="currentBody === 1">
           <div class="row">
-            <div class="col-md-6 col-lg-6 col-xl-6 row">
-              <div class="form-group input-group-sm col-md-3">
-                <label for="inputState">Protocolo</label>
-                <select id="inputState" class="form-control">
-                  <option selected>https</option>
-                  <option>http</option>
-                </select>
-              </div>
+            <div class="col-12">
+
              
-              <div class="form-group input-group-sm col-md-4">
-                <label for="ip">Servidor IP </label>
+
+                <label for="ip">Dirección del servidor </label>
                 <input
                   [(ngModel)]="ipModel"
                   type="text"
-                  class="form-control"
+                  class="form-control mb-1"
                   name="ip"
                 />
-              </div>
 
-              <span
-              >  *IP del servidor a controlar (debe tener instalada la
-              aplicación).</span
-            >
+
+              <span>
+                Dirección del servidor que sera monitoreado
+              </span>
             
             </div>
           </div>
@@ -48,10 +41,10 @@
       </div>
     </div>
     <hr />
-    <div class="row w-100 p-2">
+    <div class="row p-2">
       <div class="col-12">
         <div class="drop-option dropdown" (click)="expandBody(2)">
-          <h6>Mensajes del sistema (SOLO comandos por voz)</h6>
+          <h6>2. Mensajes del sistema (comandos por voz) <span style="color: #f16950;">(No disponible)</span></h6>
           <div class="spacer"></div>
           <i class="fas fa-angle-down" *ngIf="currentBody !== 2"></i>
           <i class="fas fa-angle-up" *ngIf="currentBody === 2"></i>
@@ -104,10 +97,10 @@
     </div>
     <hr />
 
-    <div class="row w-100 p-2">
+    <div class="row p-2">
       <div class="col-12">
         <div class="drop-option dropdown" (click)="expandBody(3)">
-          <h6>Control por voz</h6>
+          <h6>3. Control por voz</h6>
           <div class="spacer"></div>
           <i class="fas fa-angle-down" *ngIf="currentBody !== 3"></i>
           <i class="fas fa-angle-up" *ngIf="currentBody === 3"></i>
@@ -128,9 +121,8 @@
             </label>
           </div>
           <ul>
-            <li>Presione el microfono de la esquina superior derecha.</li>
-            <li>Dicte un comando.</li>
-            <li>Deje de presionar para ejecutar el comando.</li>
+            <li>Presione el microfono de la esquina inferior derecha.</li>
+            <li>Dicte un comando.</li>            
           </ul>
 
           <div class="form-check">
@@ -143,11 +135,11 @@
               id="speechType2"
             />
             <label class="form-check-label" for="speechType2">
-              Tipo 2 ("Java Speech")
+              Tipo 2 ("Ok Java") <span style="color: #f16950;">(No disponible)</span>
             </label>
           </div>
           <ul>
-            <li>Diga "Java Speech" en el microfono.</li>
+            <li>Diga "Java" en el microfono.</li>
             <li>Dicte el comando a ejecutar.</li>
             <li>
               Despues de ejecutar el comando (correcto o con error) debera
@@ -162,12 +154,12 @@
       <div class="col-12">
         <button
           type="submit"
-          class="btn alert-button mr-3"
+          class="btn alert-button m-1"
           [disabled]="invalid()"
         >
           Guardar
         </button>
-        <button class="btn alert-button" (click)="defaultValues()">
+        <button class="btn alert-button m-1" (click)="defaultValues()">
           Valores por defecto
         </button>
       </div>

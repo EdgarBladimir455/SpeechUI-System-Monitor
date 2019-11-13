@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
+import { skip } from 'rxjs/operators';
+import { RouteService } from '../services/route.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -23,13 +26,13 @@ import { Store, select } from '@ngrx/store';
 
         transition(':leave', [
           style({
-            transform: 'scaleY(1)',
+            
             opacity: '1',
             transformOrigin: '100% 0',
           }),
           animate('350ms cubic-bezier(0.39, 0.575, 0.565, 1)', 
             style({     
-              transform: 'scaleY(0)',   
+              
               height: '0px',
               opacity: '0',   
               transformOrigin: '100% 0'
@@ -39,21 +42,35 @@ import { Store, select } from '@ngrx/store';
     )
   ]
 })
-export class CommandListComponent implements OnInit {
+export class CommandListComponent implements OnInit, OnDestroy {
+
+  // Contexto de la pantalla
+  context: string = 'CommandListComponent';
 
   currentBody: number;
 
-  constructor(private store: Store<{actionParam: string}>) { }
+  storeSubscription:Subscription;
+
+  constructor(private routeService: RouteService,
+              private store: Store<{actionParam: string}>) { }
 
   ngOnInit() {
-    this.store.pipe(select('actionReducer'))
-              .subscribe(actionParam => {
-                this.expandBody(parseInt(actionParam));
-              });
+    this.routeService.notInHome();
+
+    this.storeSubscription = this.store.pipe(select('actionReducer'), skip(1))
+                                       .subscribe(actionParam => {
+                                          console.log("expandiendo una opcion: "+actionParam);                
+                                          this.expandBody(parseInt(actionParam));
+                                       });
   }
 
   expandBody(bodyNumber:number) {    
     this.currentBody = (bodyNumber === this.currentBody)? null : bodyNumber;
   }
 
+  ngOnDestroy(): void {    
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+     }
+  }
 }

@@ -18,8 +18,8 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {}
 
-  activate(outletComponent) {         
-    this.store.dispatch( context({context: outletComponent.constructor.name}) );
+  activate(outletComponent) {
+    this.store.dispatch( context({context: outletComponent.context}) );
   }
 
   prepareRoute(outlet: RouterOutlet) {

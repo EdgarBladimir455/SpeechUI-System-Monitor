@@ -24,7 +24,10 @@
                   <table class="table table-dark table-striped">
                       <thead>
                         <th>
-                          Id
+                          P_Id
+                        </th>
+                        <th>
+                          C_Id
                         </th>
                         <th>
                           Proceso
@@ -37,8 +40,9 @@
                         </th>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let process of processList" (click)="killProcess(process.command)">
+                        <tr *ngFor="let process of processList" (click)="killProcess(process.processID)">
                           <td>{{ process.processID }}</td>
+                          <td style="color: tomato;">{{ process.customId }}</td>
                           <td>{{ process.command }}</td>
                           <td>{{ process.cpuUsage }}%</td>
                           <td>{{ process.memUsage }}%</td>
@@ -49,7 +53,5 @@
               
             </div>
           </div>
-      </div>
-    
-    
+      </div>    
 </div>

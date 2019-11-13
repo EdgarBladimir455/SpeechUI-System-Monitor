@@ -18,6 +18,8 @@ public class Process {
 	private double memUsage;
 	private String hour;
 	private String command;
+	private String customId;
+	
 	public String getProcessID() {
 		return processID;
 	}
@@ -89,6 +91,12 @@ public class Process {
 	}
 	public void setCommand(String command) {
 		this.command = command;
+	}
+	public String getCustomId() {
+		return customId;
+	}
+	public void setCustomId(String customId) {
+		this.customId = customId;
 	}	
-		
+	
 }

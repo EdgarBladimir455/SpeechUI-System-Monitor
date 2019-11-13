@@ -8,45 +8,50 @@
     </div>
   </div>
 
-  <div class="row w-100 p-2">
+  <div class="row p-2">
     <div class="col-12">
       <div class="drop-option dropdown" (click)="expandBody(1)">
-        <h6>Comandos generales (se pueden usar en cualquier pantalla)</h6>
+        <h6>1. Comandos generales (se pueden usar en cualquier pantalla)</h6>
         <div class="spacer"></div>
         <i class="fas fa-angle-down" *ngIf="currentBody !== 1"></i>
         <i class="fas fa-angle-up" *ngIf="currentBody === 1"></i>
       </div>
       <div class="col-12" [@enterAnimation] *ngIf="currentBody === 1">
         <div class="row drop-row">
-          <div class="col-md-6 col-lg-6 col-xl-6">
+          <div class="col">
             <ul class="pl-1">
               <li class="mt-3">
                 <span class="drop-badge">
                   "Abrir" + nombre de la pantalla/sección
                 </span>
               </li>
-              <span>Abre la pantalla/sección especificada</span>
+              <span class="c-gray">Abre la pantalla/sección especificada</span>
+              <hr class="bg-blue"/>
 
               <li class="mt-3">
                 <span class="drop-badge">
                   "Inicio"
                 </span>
               </li>
-              <span>Muestra la pantalla principal</span>
+              <span class="c-gray">Muestra la pantalla principal</span>
+              <hr class="bg-blue"/>
 
               <li class="mt-3">
                 <span class="drop-badge">
-                  "Aceptar" (Modal/Formulario)
+                  "Aceptar" (Modal/Formulario) <span style="color: #f16950;">(No disponible)</span>
                 </span>
               </li>
-              <span>Lo mismo que hacer click en el boton Aceptar</span>
+              <span class="c-gray">Cierra el modal</span>
+              <hr class="bg-blue"/>
 
               <li class="mt-3">
                 <span class="drop-badge">
-                  "Cancelar" (Modal/Formulario)
+                  "Cancelar" (Modal/Formulario) <span style="color: #f16950;">(No disponible)</span>
                 </span>
               </li>
-              <span>Lo mismo que hacer click en el boton Aceptar</span>
+              <span class="c-gray">Cancela la acción y cierra el modal</span>
+              <hr class="bg-blue"/>
+
             </ul>
           </div>
         </div>
@@ -54,31 +59,34 @@
     </div>
   </div>
   <hr />
-  <div class="row w-100 p-2">
+  <div class="row p-2">
     <div class="col-12">
       <div class="drop-option dropdown" (click)="expandBody(2)">
-        <h6>Formularios/Inputs (Comandos Tipo 2)</h6>
+        <h6>2. Formularios/Inputs (Comandos Tipo 2)</h6>
         <div class="spacer"></div>
         <i class="fas fa-angle-down" *ngIf="currentBody !== 2"></i>
         <i class="fas fa-angle-up" *ngIf="currentBody === 2"></i>
       </div>
       <div class="col-12" [@enterAnimation] *ngIf="currentBody === 2">
         <div class="row">
-          <div class="col-md-6 col-lg-6 col-xl-6">
+          <div class="col">
             <ul class="pl-1">
               <li class="mt-3">
                 <span class="drop-badge">
-                  "Guardar"
+                  "Guardar" <span style="color: #f16950;">(No disponible)</span>
                 </span>
               </li>
-              <span>Guarda la configuración actual</span>
+              <span class="c-gray">Guarda la configuración actual</span>
+              <hr class="bg-blue"/>
 
               <li class="mt-3">
                 <span class="drop-badge">
-                  "Valores iniciales"
+                  "Valores iniciales" <span style="color: #f16950;">(No disponible)</span>
                 </span>
               </li>
-              <span>Llena el formulario con valores por defecto</span>
+              <span class="c-gray">Llena el formulario con valores por defecto</span>
+              <hr class="bg-blue"/>
+
             </ul>
           </div>
         </div>
@@ -86,24 +94,26 @@
     </div>
   </div>
   <hr />
-  <div class="row w-100 p-2">
+  <div class="row p-2">
     <div class="col-12">
       <div class="drop-option dropdown" (click)="expandBody(3)">
-        <h6>Pantalla: Aplicaciones en ejecución</h6>
+        <h6>3. Pantalla: Aplicaciones en ejecución</h6>
         <div class="spacer"></div>
         <i class="fas fa-angle-down" *ngIf="currentBody !== 3"></i>
         <i class="fas fa-angle-up" *ngIf="currentBody === 3"></i>
       </div>
       <div class="col-12" [@enterAnimation] *ngIf="currentBody === 3">
         <div class="row">
-          <div class="col-md-6 col-lg-6 col-xl-6">
+          <div class="col">
             <ul class="pl-1">
               <li class="mt-3">
                 <span class="drop-badge">
-                  "Terminar " + numero de la aplicación/proceso
+                  "Terminar " + <span style="color: #f16950;">C_Id</span> (o nombre) de la aplicación/proceso
                 </span>
               </li>
-              <span>Termina la aplicación/proceso especificado</span>
+              <span class="c-gray">Termina la aplicación/proceso especificado</span>
+              <hr class="bg-blue" />
+
             </ul>
           </div>
         </div>

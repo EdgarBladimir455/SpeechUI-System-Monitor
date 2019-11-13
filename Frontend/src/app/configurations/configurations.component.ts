@@ -3,6 +3,9 @@ import { Settings } from '../model/system';
 import { AlertService } from '../services/alert.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
+import { skip } from 'rxjs/operators';
+import { RouteService } from '../services/route.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-configurations',
@@ -40,7 +43,10 @@ import { Store, select } from '@ngrx/store';
     )
   ]
 })
-export class ConfigurationsComponent implements OnInit {
+export class ConfigurationsComponent implements OnInit, OnDestroy {
+
+  // Contexto de la pantalla
+  context: string = 'ConfigurationsComponent';
 
   currentBody: number;
   ipModel: string;
@@ -48,19 +54,25 @@ export class ConfigurationsComponent implements OnInit {
   spErrorMsgModel:boolean;
   spRespMsgModel:boolean;
   speechTypeModel;
-  settings = new Settings();
+  settings;
 
-  constructor(private alertService: AlertService,
+  storeSubscription:Subscription;
+  
+  constructor(private routeService: RouteService,
+              private alertService: AlertService,
               private store: Store<{actionParam: string}>) { }
 
   ngOnInit() {
+    this.routeService.notInHome();
+    
     this.settings = JSON.parse( localStorage.getItem('settings') );
     this.setModels();
-
-    this.store.pipe(select('actionReducer'))
-              .subscribe(actionParam => {
-                this.expandBody(parseInt(actionParam));
-              });
+    
+    this.storeSubscription = this.store.pipe(select('actionReducer'), skip(1))
+                                       .subscribe(actionParam => {
+                                          console.log("expandiendo una opcion: "+actionParam);                
+                                          this.expandBody(parseInt(actionParam));
+                                       });
   }
 
   setModels() {
@@ -70,6 +82,8 @@ export class ConfigurationsComponent implements OnInit {
       this.spErrorMsgModel = this.settings.spErrorMsg;
       this.spRespMsgModel = this.settings.spRespMsg;
       this.speechTypeModel = this.settings.speechType;
+    } else {
+      this.settings = new Settings();
     }
   }  
 
@@ -77,7 +91,7 @@ export class ConfigurationsComponent implements OnInit {
     this.currentBody = (bodyNumber === this.currentBody)? null : bodyNumber;
   }
 
-  prepareObject() {
+  prepareObject() {        
     this.settings.ip = this.ipModel;
     this.settings.spConfMsg = this.spConfMsgModel;
     this.settings.spErrorMsg = this.spErrorMsgModel;
@@ -108,4 +122,9 @@ export class ConfigurationsComponent implements OnInit {
     this.setModels();
   }
 
+  ngOnDestroy(): void {    
+    if (this.storeSubscription) {
+      this.storeSubscription.unsubscribe();
+     }
+  }
 }

@@ -12,12 +12,13 @@ export const COMMMAND_LIST = 'comandos';
 
 // actionRedcuer constants
 export const ACTION_EXPAND = 'expand';
+export const ACTION_CHANGE_STATUS_VIEW = 'changeStatusView';
 
 export const initialState = '';
 
 const _contextReducer = createReducer(initialState,
     on(context, (state, param) => {
-        console.log("context reducer: "+param.context);        
+        console.log("%c Contexto: "+param.context, 'background: black; color: #bada55');        
         return param.context;
     })    
 );
@@ -40,6 +41,9 @@ const _actionReducer = createReducer(initialState,
         console.log("action reducer: "+param.action);
         
         switch(param.action) {
+            case ACTION_CHANGE_STATUS_VIEW:
+                return param.actionParam;
+
             case ACTION_EXPAND:
                 return param.actionParam;                
         }

@@ -11,6 +11,7 @@ export interface Process {
   memUsage: number;
   hour: string;
   command: string;
+  customId: string;
 }
 
 export interface ProcessWrapper {
@@ -25,6 +26,7 @@ export class Settings {
   spErrorMsg: boolean = true;
   spRespMsg: boolean = true;
   speechType: string = '1';
+  playRecordedAudio: boolean = false;
 }
 
 

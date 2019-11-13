@@ -1,9 +1,18 @@
-<audio [src]="blobUrl" autoplay="true" id="audio"></audio>
 
-<div *ngIf="microphoneAllowed">
-  <div class="bg-microphone"></div>
-    <div class="link-r" holdable (start)="startRecording()" (stop)="stopRecording()"></div>
-    <span class="navbar-brand text-white">
-      <i class="fas fa-microphone" [@zoom]="isRecording" [@audioError]="audioError"></i>
-    </span>
+<div class="" [ngClass]="{'loading': recording}">
+
+      <audio [src]="blobUrl" autoplay="true" id="audio"></audio>
+  
+      <div>
+        <div class="float-button">
+          <div class="circle-micro" [ngClass]="{'micro-disabled': !microAvailable}" [@zoom]="recording" [@zoomOut]="hoverMicro && !recording" (mouseenter)="hoverMicro=true" (mouseleave)="hoverMicro=false" (click)="record()">
+            <span class="micro">
+              <i class="fas fa-microphone" [ngClass]="{'wobble-hor-bottom': audioError}"></i>
+            </span>                  
+          </div>
+          <div class="circle-micro waves" [@zoom]="recording" *ngIf="recording">   
+            </div>
+        </div>    
+
+      </div>
 </div>
