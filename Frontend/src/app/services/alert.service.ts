@@ -45,8 +45,8 @@ export class AlertService {
   alert(show:boolean) {
     this.option.next(null);
     this.showAlert.next(show);
-    show? document.scrollingElement.classList.add('overflow-hidden') :
-    document.scrollingElement.classList.remove('overflow-hidden');
+    show? document.body.classList.add('overflow-hidden') :
+    document.body.classList.remove('overflow-hidden');
   }
 
   alertObservable() {

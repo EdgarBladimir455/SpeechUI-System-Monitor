@@ -15,8 +15,7 @@
   <div class="link-r" (click)="record()" holdable ()></div>
   <span class="navbar-brand text-white">
     <i class="fas fa-microphone"></i>
-  </span> -->
-  <app-record></app-record>
+  </span> -->  
 </nav>
 
 <div class="loading" *ngIf="showAlert && !loading">
@@ -52,6 +51,8 @@
   </svg>
 </div>
 
-<div class="container-fluid p-4 pb-3 h-80">
+<app-record></app-record>
+
+<div class="container-fluid px-4 pb-3 mt-3">
   <ng-content #mainContent> </ng-content>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
@@ -13,14 +14,18 @@ export class StatusComponent implements OnInit {
   @Input('cpuPercentUsage') cpuPercentUsage: number = 0;
   @Input('memPercentUsage') memPercentUsage: number = 0;
 
-  pcName:string = 'Anonymous';
+  pcName:string = 'Equipo';
   capacity:number = 0;
   used:number = 0;
   available:number = 0;
   
-  constructor() { }
+  constructor(private store: Store<{actionParam: string}>) { }
 
   ngOnInit() {
+    this.store.pipe(select('actionReducer'))
+              .subscribe(actionParam => {
+                this.changeStatView(parseInt(actionParam));
+              });
   }
 
   changeStatView(view:number) {

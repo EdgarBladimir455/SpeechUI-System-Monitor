@@ -16,6 +16,9 @@ import { trigger, style, animate, transition, state } from '@angular/animations'
 })
 export class MenuOptionsComponent implements OnInit, OnDestroy {
     
+  // Contexto de la pantalla
+  context: string = 'MenuOptionsComponent';
+
   option: number = 0;
 
   constructor(private routeService:RouteService,

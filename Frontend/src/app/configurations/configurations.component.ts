@@ -3,6 +3,8 @@ import { Settings } from '../model/system';
 import { AlertService } from '../services/alert.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
+import { skip } from 'rxjs/operators';
+import { RouteService } from '../services/route.service';
 
 @Component({
   selector: 'app-configurations',
@@ -42,23 +44,30 @@ import { Store, select } from '@ngrx/store';
 })
 export class ConfigurationsComponent implements OnInit {
 
+  // Contexto de la pantalla
+  context: string = 'ConfigurationsComponent';
+
   currentBody: number;
   ipModel: string;
   spConfMsgModel:boolean;
   spErrorMsgModel:boolean;
   spRespMsgModel:boolean;
   speechTypeModel;
-  settings = new Settings();
+  settings;
 
-  constructor(private alertService: AlertService,
+  constructor(private routeService: RouteService,
+              private alertService: AlertService,
               private store: Store<{actionParam: string}>) { }
 
   ngOnInit() {
+    this.routeService.notInHome();
+    
     this.settings = JSON.parse( localStorage.getItem('settings') );
     this.setModels();
-
-    this.store.pipe(select('actionReducer'))
+    
+    this.store.pipe(select('actionReducer'), skip(1))
               .subscribe(actionParam => {
+                console.log("expandiendo una opcion: "+actionParam);
                 this.expandBody(parseInt(actionParam));
               });
   }
@@ -70,6 +79,8 @@ export class ConfigurationsComponent implements OnInit {
       this.spErrorMsgModel = this.settings.spErrorMsg;
       this.spRespMsgModel = this.settings.spRespMsg;
       this.speechTypeModel = this.settings.speechType;
+    } else {
+      this.settings = new Settings();
     }
   }  
 
@@ -77,7 +88,7 @@ export class ConfigurationsComponent implements OnInit {
     this.currentBody = (bodyNumber === this.currentBody)? null : bodyNumber;
   }
 
-  prepareObject() {
+  prepareObject() {        
     this.settings.ip = this.ipModel;
     this.settings.spConfMsg = this.spConfMsgModel;
     this.settings.spErrorMsg = this.spErrorMsgModel;

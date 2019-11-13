@@ -9,13 +9,24 @@ import { Settings } from './model/system';
 })
 export class AppComponent implements OnInit {
 
+  // Settings
+  private settings = new Settings();
+  private url = 'http://localhost:8080';
+  private playRecordedAudio = false;
+
   constructor(private http: HttpClient,
               private alertService: AlertService) {
   } 
 
+  setModels() {
+    if (this.settings) {
+      this.url = this.settings.ip;    
+      this.playRecordedAudio = this.settings.playRecordedAudio;  
+    }
+  }    
   ngOnInit() {
     let settings: Settings = JSON.parse( localStorage.getItem('settings') );
-    this.http.get('http://'+settings.ip+'/server/ping', { observe: 'response', responseType: 'text' })
+    this.http.get(this.url+'/server/ping', { observe: 'response', responseType: 'text' })
              .subscribe(resp => {
                 if (resp.status !== 200 ) {
                   console.log(false)                  

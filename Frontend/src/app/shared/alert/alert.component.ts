@@ -27,7 +27,7 @@ export class AlertComponent implements OnInit, OnDestroy {
                                         });
   }
 
-  acept() {
+  acept() {    
     this.alertService.acept();
   }
 

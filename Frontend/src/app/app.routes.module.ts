@@ -7,7 +7,7 @@ const routes: Routes = [
   { path:'bash',
     component:MenuComponent,
     children: [
-      {path:'menu', loadChildren: './menu-options/menu-options.module#MenuOptionsModule', data: {animation:'menu'}},
+      {path:'menu', loadChildren: './menu-options/menu-options.module#MenuOptionsModule', data: {breadcrum:'hola :v', animation:'menu'}},
       {path:'configuracion', loadChildren: './configurations/configurations.module#ConfigurationsModule', data: {animation: 'conf'}},
       {path:'procesos', loadChildren: './process-list/process-list.module#ProcessListModule'},
       {path:'comandos', loadChildren: './command-list/command-list.module#CommandListModule'}

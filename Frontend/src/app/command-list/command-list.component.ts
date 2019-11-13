@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Store, select } from '@ngrx/store';
+import { skip } from 'rxjs/operators';
+import { RouteService } from '../services/route.service';
 
 
 @Component({
@@ -23,13 +25,13 @@ import { Store, select } from '@ngrx/store';
 
         transition(':leave', [
           style({
-            transform: 'scaleY(1)',
+            
             opacity: '1',
             transformOrigin: '100% 0',
           }),
           animate('350ms cubic-bezier(0.39, 0.575, 0.565, 1)', 
             style({     
-              transform: 'scaleY(0)',   
+              
               height: '0px',
               opacity: '0',   
               transformOrigin: '100% 0'
@@ -41,13 +43,20 @@ import { Store, select } from '@ngrx/store';
 })
 export class CommandListComponent implements OnInit {
 
+  // Contexto de la pantalla
+  context: string = 'CommandListComponent';
+
   currentBody: number;
 
-  constructor(private store: Store<{actionParam: string}>) { }
+  constructor(private routeService: RouteService,
+              private store: Store<{actionParam: string}>) { }
 
   ngOnInit() {
-    this.store.pipe(select('actionReducer'))
+    this.routeService.notInHome();
+
+    this.store.pipe(select('actionReducer'), skip(1))
               .subscribe(actionParam => {
+                console.log("expandiendo una opcion: "+actionParam);                
                 this.expandBody(parseInt(actionParam));
               });
   }

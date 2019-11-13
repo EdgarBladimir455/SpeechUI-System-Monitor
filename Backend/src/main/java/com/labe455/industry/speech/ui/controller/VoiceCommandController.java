@@ -62,6 +62,7 @@ import com.google.protobuf.ByteString;
 import com.labe455.industry.speech.ui.exceptions.CommandNotValidException;
 import com.labe455.industry.speech.ui.exceptions.TranscriptionNotFound;
 import com.labe455.industry.speech.ui.model.CommandResponse;
+import com.labe455.industry.speech.ui.system.monitor.controller.SystemMonitorController;
 import com.labe455.industry.speech.ui.utils.CommandUtil;
 
 /**
@@ -82,7 +83,7 @@ public class VoiceCommandController {
 	
 	
 	private final String oneCommandList = "inicio aceptar cancelar";
-	private final String twoCommandList = "abrir terminar expandir";
+	private final String twoCommandList = "abrir terminar expandir uso";
 	private final String twoCommandParamList = "proceso procesos comando comandos configuracion";		
 	
 	private String recognizeStreaming(MultipartFile audioRecord) throws CommandNotValidException {
@@ -101,7 +102,17 @@ public class VoiceCommandController {
                     			 .addPhrases("defecto")
                     			 .addPhrases("configuracion")
                     			 .addPhrases("lista")
+                    			 
                     			 .addPhrases("termina")
+                    			 .addPhrases("soffice.bin")
+                    			 .addPhrases("firefox")
+                    			 .addPhrases("chrome")
+                    			 .addPhrases("nautilus")
+                    			 .addPhrases("dolphin")
+                    			 
+                    			 .addPhrases("uso")
+                    			 .addPhrases("ram")
+                    			 .addPhrases("cpu")
                     			 .addPhrases("1")
                     			 .addPhrases("2")
                     			 .addPhrases("3")
@@ -112,19 +123,15 @@ public class VoiceCommandController {
 		        RecognitionConfig.newBuilder()
 		            .setEncoding(AudioEncoding.LINEAR16)
 		            .setEnableAutomaticPunctuation(false)		  
-		            .setEnableSeparateRecognitionPerChannel(true)
 		            .setProfanityFilter(false)
 		            .setLanguageCode("es-US")
 		            .setSampleRateHertz(44100)
-		            .setUseEnhanced(true)
 		            .addSpeechContexts(sc)
-		            .setModel("command_and_search")
 		            .build();
 		    
 		    StreamingRecognitionConfig config =
 		        StreamingRecognitionConfig.newBuilder()
         								  .setConfig(recConfig)
-        								  .setSingleUtterance(true)
         								  .build();
 
 		    class ResponseApiStreamingObserver<T> implements ApiStreamObserver<T> {
@@ -323,12 +330,14 @@ public class VoiceCommandController {
 				throw new CommandNotValidException("Comando no valido");
 			}
 			
-			if (isNumeric(parts[1])) {
-				CommandUtil.killProcessById(parts[1]);
+			if (isNumeric(parts[1])) {				
+				CommandUtil.killProcessById( SystemMonitorController.processesIds.get(parts[1]) );
 				commandResponse.setSpeechResponse(true);
 				commandResponse.setSpeechText("Proceso terminado con exito");
 			} else {
-				throw new CommandNotValidException("Comando no valido");
+				CommandUtil.killProcessByName(parts[1]);
+				commandResponse.setSpeechResponse(true);
+				commandResponse.setSpeechText("Proceso terminado con exito");
 			}
 			
 			break;			
@@ -357,6 +366,22 @@ public class VoiceCommandController {
 			} else {
 				throw new CommandNotValidException("Comando no valido");
 			}
+			break;
+			
+		case "uso":
+			
+			if (!context.equalsIgnoreCase(PROCESS_CONTEXT)) {
+				throw new CommandNotValidException("Comando no valido");
+			}
+			
+			if (parts[1].equalsIgnoreCase("ram") || parts[1].equalsIgnoreCase("cpu")) {						
+				commandResponse.setCommandType("action");
+				commandResponse.setCommand("changeStatusView");
+				commandResponse.setCommandParam( (parts[1].equalsIgnoreCase("ram")? "1" : "2") );
+			} else {
+				throw new CommandNotValidException("Comando no valido");
+			}
+			
 			break;
 		}
 		

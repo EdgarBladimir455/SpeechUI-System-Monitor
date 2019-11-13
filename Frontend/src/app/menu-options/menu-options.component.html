@@ -1,9 +1,9 @@
-<div class="row flip-in-ver-right">
+<div class="row flip-in-ver-right" style="margin-bottom: 5rem;">
   <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(1)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 1">
       
     <div class="card mx-auto text-center h-100">
       <div class="card-body">
-        <h5 class="card-title">Mantenimiento</h5>
+        <h5 class="card-title">Mantenimiento <span style="color: #f16950;">(No disponible)</span> </h5>
 
         <div class="option-body">
           <div class="option-icon">
@@ -54,7 +54,7 @@
   <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(3)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 3">
     <div class="card mx-auto text-center h-100">
       <div class="card-body">
-        <h5 class="card-title">Liberar espacio</h5>
+        <h5 class="card-title">Liberar espacio <span style="color: #f16950;">(No disponible)</span> </h5>
 
         <div class="option-body">
           <div class="option-icon">
@@ -85,7 +85,7 @@
             <div class="option-icon">
               <div class="option-icon-container">
                 <i class="fas fa-user primary-icon"></i>
-                <i class="fas fa-comment sub-check"></i>
+                <i class="fas fa-comment sub-common"></i>
               </div>
             </div>
   
@@ -125,5 +125,30 @@
     </div>
   </div>
 
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3 mt-3 option" (mouseenter)="mouseEnter(6)" (mouseleave)="mouseLeave()" [@enterAnimation]="option == 6">
+    <div class="card mx-auto text-center h-100">
+      <div class="card-body">
+        <h5 class="card-title">Lista negra <span style="color: #f16950;">(No disponible)</span> </h5>
+
+        <div class="option-body">
+          <div class="option-icon">
+            <div class="option-icon-container">
+              <i class="fas fa-book primary-icon mr-1"></i>
+              <i class="fas fa-pencil-alt sub-common"></i>
+            </div>
+          </div>
+
+          <div class="option-title-s2 mt-2">
+            <div class="option-container">
+              <span class="option-title-s2-text">
+                Bloqueé procesos ó aplicaciónes para que no puedan ser
+                ejecutados en el equipo administrado
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

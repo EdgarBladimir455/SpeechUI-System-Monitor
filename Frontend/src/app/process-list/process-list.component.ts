@@ -12,6 +12,9 @@ import { AlertService } from '../services/alert.service';
 })
 export class ProcessListComponent implements OnInit, OnDestroy {
 
+  // Contexto de la pantalla
+  context: string = 'ProcessListComponent';
+
   public processList: Process[];
   private processSubscription: Subscription;
   public cpuPercentUsage: number = 0;
@@ -33,7 +36,8 @@ export class ProcessListComponent implements OnInit, OnDestroy {
     this.processSubscription = this.bashService
                                   .processObservable()
                                   .subscribe(newProcessWrapper => {
-
+                                    console.log(newProcessWrapper);
+                                    
                                     if (this.filter !== '') {
                                       this.processList = newProcessWrapper.processList.filter(process => process.command.includes(this.filter));
                                     } else {
@@ -52,8 +56,8 @@ export class ProcessListComponent implements OnInit, OnDestroy {
     }
   }
 
-  killProcess(name: string) {
-    this.bashService.killProcess(name);
+  killProcess(id: string) {
+    this.bashService.killProcess(id);
   }
   
 }
